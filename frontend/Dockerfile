@@ -37,4 +37,4 @@ RUN caddy fmt Caddyfile --overwrite
 COPY --from=build /app/dist ./dist
 
 # Use Caddy to run/serve the app
-CMD ["ls", "-ahl"]
+CMD ["ls", "-ahl", "./dist"]
