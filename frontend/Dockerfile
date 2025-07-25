@@ -35,6 +35,7 @@ RUN caddy fmt Caddyfile --overwrite
 
 # Copy files to the container image.
 COPY --from=build /app/dist ./dist
+COPY --from=build /app/deployment ./deployment
 
 # Use Caddy to run/serve the app
-CMD ["ls", "-ahl", "./dist"]
+CMD ["./deployment/server-entrypoint.sh"]
