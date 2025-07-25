@@ -13,6 +13,6 @@ api.add_router("", services_router)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("healthcheck/", health_check, name="health_check"),
+    path("health/", health_check, name="health_check"),
     path("api/", api.urls),
 ]
