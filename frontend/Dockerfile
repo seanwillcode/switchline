@@ -37,4 +37,4 @@ RUN caddy fmt Caddyfile --overwrite
 COPY --from=build /app/dist ./dist
 
 # Use Caddy to run/serve the app
-CMD ["./frontend/deployment/server-entrypoint.sh"]
+CMD ["./deployment/server-entrypoint.sh"]
