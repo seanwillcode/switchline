@@ -1,0 +1,214 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "NinjaAPI",
+    "version": "1.0.0",
+    "description": ""
+  },
+  "paths": {
+    "/api/projects": {
+      "get": {
+        "operationId": "api_projects_controller_list_projects",
+        "summary": "List Projects",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ProjectRes"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/services": {
+      "post": {
+        "operationId": "api_services_controller_create_service",
+        "summary": "Create Service",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceCreateReq"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DeploymentRes": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string"
+          },
+          "statusUpdatedAt": {
+            "title": "Statusupdatedat",
+            "type": "string"
+          },
+          "canRedeploy": {
+            "title": "Canredeploy",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "createdAt",
+          "statusUpdatedAt",
+          "canRedeploy"
+        ],
+        "title": "DeploymentRes",
+        "type": "object"
+      },
+      "ProjectRes": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string"
+          },
+          "deletedAt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deletedat"
+          },
+          "services": {
+            "items": {
+              "$ref": "#/components/schemas/ServiceRes"
+            },
+            "title": "Services",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "createdAt",
+          "deletedAt",
+          "services"
+        ],
+        "title": "ProjectRes",
+        "type": "object"
+      },
+      "ServiceRes": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string"
+          },
+          "deletedAt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deletedat"
+          },
+          "deployments": {
+            "items": {
+              "$ref": "#/components/schemas/DeploymentRes"
+            },
+            "title": "Deployments",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "createdAt",
+          "deletedAt",
+          "deployments"
+        ],
+        "title": "ServiceRes",
+        "type": "object"
+      },
+      "ServiceCreateReq": {
+        "properties": {
+          "projectID": {
+            "title": "Projectid",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "image": {
+            "title": "Image",
+            "type": "string"
+          }
+        },
+        "required": [
+          "projectID",
+          "name",
+          "image"
+        ],
+        "title": "ServiceCreateReq",
+        "type": "object"
+      }
+    }
+  },
+  "servers": []
+}
