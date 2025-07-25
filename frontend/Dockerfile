@@ -13,13 +13,13 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install packages
-RUN npm ci
+RUN yarn install --frozen-lockfile
 
 # Copy local code to the container image.
 COPY . ./
 
 # Build the app.
-RUN npm run build
+RUN yarn build
 
 # Use the Caddy image
 FROM caddy
