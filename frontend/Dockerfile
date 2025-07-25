@@ -38,4 +38,4 @@ COPY --from=build /app/dist ./dist
 COPY --from=build /app/deployment ./deployment
 
 # Use Caddy to run/serve the app
-CMD ["deployment/server-entrypoint.sh"]
+CMD ["sh", "deployment/server-entrypoint.sh"]
