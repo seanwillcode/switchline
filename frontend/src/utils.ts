@@ -1,4 +1,4 @@
-import type { ProjectRes, ServiceRes } from "../../api/models";
+import type { ProjectRes } from "./api/models";
 
 export const getProjectById = (
   projects: ProjectRes[],
