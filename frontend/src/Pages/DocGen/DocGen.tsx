@@ -1,17 +1,13 @@
 import React from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import {
-  Button,
-  Container,
-  Flex,
-  Group,
-  Select,
-  Text,
-  Title,
-} from "@mantine/core";
+import { Button, Flex, Group, Select, Text, Title } from "@mantine/core";
 import { CodeHighlight } from "@mantine/code-highlight";
 import { documentProject, getAllProjects } from "../../api/projects";
-import { generateSelectData, getProjectById } from "../../utils";
+import {
+  generateSelectData,
+  getProjectById,
+  markdownWordWrap,
+} from "../../utils";
 import type { ProjectOverviewReadmeRes } from "../../api/models";
 
 const DocGen = () => {
@@ -71,22 +67,20 @@ const DocGen = () => {
         </Flex>
       </Group>
 
-      <Container size="md">
-        <Flex justify="center" align="center" h="100%">
-          {!projectDocs && (
-            <Button disabled={!selectedProjectId} onClick={handleClick}>
-              Create Documentation
-            </Button>
-          )}
-          {projectDocs && (
-            <CodeHighlight
-              code={projectDocs.content}
-              language="md"
-              radius="md"
-            />
-          )}
-        </Flex>
-      </Container>
+      <Flex justify="center" align="center" h="100%">
+        {!projectDocs && (
+          <Button disabled={!selectedProjectId} onClick={handleClick}>
+            Create Documentation
+          </Button>
+        )}
+        {projectDocs && (
+          <CodeHighlight
+            code={markdownWordWrap(projectDocs.content)}
+            language="md"
+            radius="md"
+          />
+        )}
+      </Flex>
     </>
   );
 };
