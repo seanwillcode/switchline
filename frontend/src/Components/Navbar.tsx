@@ -8,6 +8,7 @@ import {
   TbPlugConnected,
   TbLifebuoy,
   TbPrompt,
+  TbChecklist,
 } from "react-icons/tb";
 import { Link, useLocation } from "react-router-dom";
 
@@ -41,6 +42,11 @@ const Navbar = () => {
       <Stack>
         <Title order={3}>🚀 Mission Control</Title>
         <NavbarItem icon={TbFolderFilled} title={"Projects"} url="/dashboard" />
+        <NavbarItem
+          icon={TbChecklist}
+          title={"Docs Generator"}
+          url="/doc-gen"
+        />
         <NavbarItem icon={TbLockFilled} title={"Secrets"} url="/secrets" />
         <NavbarItem icon={TbPrompt} title={"Logs"} url="/logs" />
         <NavbarItem icon={TbWorld} title={"Domains"} url="/domains" />

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "ninja",
     "corsheaders",
+    "api",
 ]
 
 MIDDLEWARE = [
@@ -143,3 +144,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOW_ALL_ORIGINS = True
 
 RAILWAY_API_TOKEN = os.environ["RAILWAY_API_TOKEN"]
+OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]

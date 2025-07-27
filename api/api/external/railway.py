@@ -1,3 +1,5 @@
+from dateutil.parser import isoparse
+
 from gql import gql
 from .gql_client import client
 
@@ -87,14 +89,16 @@ def get_all_projects(team_id: str):
 
     def _normalize_service(edge: dict) -> dict:
         node = edge["node"]
+
         return {
             "id": node["id"],
             "name": node["name"],
-            "createdAt": node["createdAt"],
-            "deletedAt": node["deletedAt"],
-            "deployments": [
-                _normalize_deployment(edge) for edge in node["deployments"]["edges"]
-            ],
+            "createdAt": isoparse(node["createdAt"]) if node["createdAt"] else None,
+            "deletedAt": isoparse(node["deletedAt"]) if node["deletedAt"] else None,
+            "deployments": sorted(
+                [_normalize_deployment(edge) for edge in node["deployments"]["edges"]],
+                key=lambda x: x["createdAt"],
+            ),
         }
 
     def _normalize(response: dict) -> dict:
@@ -103,8 +107,8 @@ def get_all_projects(team_id: str):
             "id": node["id"],
             "name": node["name"],
             "description": node["description"],
-            "createdAt": node["createdAt"],
-            "deletedAt": node["deletedAt"],
+            "createdAt": isoparse(node["createdAt"]) if node["createdAt"] else None,
+            "deletedAt": isoparse(node["deletedAt"]) if node["deletedAt"] else None,
             "services": [
                 _normalize_service(edge) for edge in node["services"]["edges"]
             ],
@@ -146,3 +150,50 @@ def create_container(name: str, project_id: str, image: str):
 
     update_result = client.execute(update_mutation, variable_values=update_variables)
     return update_result
+
+
+def get_project(project_id: str):
+    query = gql(
+        """
+        query GetProject($id: String!) {
+            project(id: $id) {
+                description
+                name
+                services {
+                    edges {
+                        node {
+                            name
+                            updatedAt
+                            createdAt
+                            deployments {
+                                edges {
+                                    node {
+                                        environment {
+                                        createdAt
+                                        deletedAt
+                                        name
+                                        }
+                                    }
+                                }
+                            }
+                            repoTriggers {
+                                edges {
+                                    node {
+                                        branch
+                                        repository
+                                        provider
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        """
+    )
+
+    variables = {"id": project_id}
+
+    result = client.execute(query, variable_values=variables)
+    return result

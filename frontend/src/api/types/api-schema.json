@@ -29,6 +29,35 @@
         }
       }
     },
+    "/api/projects/{projectID}": {
+      "post": {
+        "operationId": "api_projects_controller_document_project",
+        "summary": "Document Project",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "projectID",
+            "schema": {
+              "title": "Projectid",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectOverviewReadmeRes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/services": {
       "post": {
         "operationId": "api_services_controller_create_service",
@@ -65,10 +94,12 @@
             "type": "string"
           },
           "createdAt": {
+            "format": "date-time",
             "title": "Createdat",
             "type": "string"
           },
           "statusUpdatedAt": {
+            "format": "date-time",
             "title": "Statusupdatedat",
             "type": "string"
           },
@@ -109,12 +140,14 @@
             "title": "Description"
           },
           "createdAt": {
+            "format": "date-time",
             "title": "Createdat",
             "type": "string"
           },
           "deletedAt": {
             "anyOf": [
               {
+                "format": "date-time",
                 "type": "string"
               },
               {
@@ -153,12 +186,14 @@
             "type": "string"
           },
           "createdAt": {
+            "format": "date-time",
             "title": "Createdat",
             "type": "string"
           },
           "deletedAt": {
             "anyOf": [
               {
+                "format": "date-time",
                 "type": "string"
               },
               {
@@ -183,6 +218,39 @@
           "deployments"
         ],
         "title": "ServiceRes",
+        "type": "object"
+      },
+      "ProjectOverviewReadmeRes": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "created_at": {
+            "title": "Created At",
+            "type": "string"
+          },
+          "project_id": {
+            "title": "Project Id",
+            "type": "string"
+          },
+          "content": {
+            "title": "Content",
+            "type": "string"
+          },
+          "prompt": {
+            "title": "Prompt",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "created_at",
+          "project_id",
+          "content",
+          "prompt"
+        ],
+        "title": "ProjectOverviewReadmeRes",
         "type": "object"
       },
       "ServiceCreateReq": {

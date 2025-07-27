@@ -15,8 +15,8 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
       return <Badge color="green">Success</Badge>;
     case "PENDING":
       return <Badge color="purple">Pending</Badge>;
-    // case "crashed":
-    //   return <Badge color="red">Crashed</Badge>;
+    case "FAILED":
+      return <Badge color="red">Failed</Badge>;
     default:
       return <Badge color="blue">Unknown</Badge>;
   }

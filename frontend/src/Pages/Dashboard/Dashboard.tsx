@@ -2,10 +2,11 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProjects } from "../../api/projects";
 import { Button, Flex, Group, Select, Text, Title } from "@mantine/core";
-import type { ProjectRes, ServiceRes } from "../../api/models";
+import type { ServiceRes } from "../../api/models";
 import ServiceGrid from "./ServiceGrid";
 import { useDisclosure } from "@mantine/hooks";
 import ServiceModal from "./ServiceModal";
+import { generateSelectData, getProjectById } from "../../utils";
 
 const Dashboard = () => {
   const { data } = useQuery({
@@ -62,25 +63,6 @@ const Dashboard = () => {
       />
     </>
   );
-};
-
-const generateSelectData = (projects: ProjectRes[]) => {
-  return projects.map((project) => ({
-    label: project.name,
-    value: project.id,
-  }));
-};
-
-const getProjectById = (
-  projects: ProjectRes[],
-  projectId: string | null,
-): ProjectRes | null => {
-  if (!projects || !projectId) return null;
-
-  const filtered = projects.filter((project) => project.id === projectId);
-
-  if (filtered.length === 0) return null;
-  return filtered[0];
 };
 
 export default Dashboard;

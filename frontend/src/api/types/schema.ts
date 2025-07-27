@@ -21,6 +21,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/projects/{projectID}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Document Project */
+        post: operations["api_projects_controller_document_project"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/services": {
         parameters: {
             query?: never;
@@ -48,9 +65,15 @@ export interface components {
             id: string;
             /** Status */
             status: string;
-            /** Createdat */
+            /**
+             * Createdat
+             * Format: date-time
+             */
             createdAt: string;
-            /** Statusupdatedat */
+            /**
+             * Statusupdatedat
+             * Format: date-time
+             */
             statusUpdatedAt: string;
             /** Canredeploy */
             canRedeploy: boolean;
@@ -63,7 +86,10 @@ export interface components {
             name: string;
             /** Description */
             description: string | null;
-            /** Createdat */
+            /**
+             * Createdat
+             * Format: date-time
+             */
             createdAt: string;
             /** Deletedat */
             deletedAt: string | null;
@@ -76,12 +102,28 @@ export interface components {
             id: string;
             /** Name */
             name: string;
-            /** Createdat */
+            /**
+             * Createdat
+             * Format: date-time
+             */
             createdAt: string;
             /** Deletedat */
             deletedAt: string | null;
             /** Deployments */
             deployments: components["schemas"]["DeploymentRes"][];
+        };
+        /** ProjectOverviewReadmeRes */
+        ProjectOverviewReadmeRes: {
+            /** Id */
+            id: string;
+            /** Created At */
+            created_at: string;
+            /** Project Id */
+            project_id: string;
+            /** Content */
+            content: string;
+            /** Prompt */
+            prompt: string;
         };
         /** ServiceCreateReq */
         ServiceCreateReq: {
@@ -117,6 +159,28 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ProjectRes"][];
+                };
+            };
+        };
+    };
+    api_projects_controller_document_project: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                projectID: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProjectOverviewReadmeRes"];
                 };
             };
         };
