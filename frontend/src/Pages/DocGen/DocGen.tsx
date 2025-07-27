@@ -69,7 +69,11 @@ const DocGen = () => {
 
       <Flex justify="center" align="center" h="100%">
         {!projectDocs && (
-          <Button disabled={!selectedProjectId} onClick={handleClick}>
+          <Button
+            disabled={!selectedProjectId}
+            onClick={handleClick}
+            loading={mutation.isPending}
+          >
             Create Documentation
           </Button>
         )}
